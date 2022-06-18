@@ -1,0 +1,33 @@
+﻿@page "/"
+@using ShopOnline.Models
+@inherits ProductsBase
+
+@*@code {
+
+}*@
+
+@if(Products == null)
+{
+	<h3>Loading Products</h3>
+}
+else
+{
+	<h3 class="mb-5">Products</h3>
+
+	var productsCount = Products.Count();
+
+	@if (productsCount > 0)
+	{
+		const int itemsPerRow = 4;
+		var productListRow = new List<ProductDto>();
+
+		@for (int i = 0; i < productsCount; i++)
+		{
+			productListRow = Products.Skip(i * itemsPerRow).Take(itemsPerRow).ToList();
+
+			<div class="row mt-3">
+				<DisplayProducts Products="@productListRow"></DisplayProducts>
+			</div>
+		}
+	}
+}
