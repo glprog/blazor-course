@@ -16,5 +16,29 @@ namespace ShopOnline.Web.Pages
             var products = await this.ProductsService.GetAllProductsAsync();
             this.Products = products;
         }
+
+        protected IEnumerable<IGrouping<ProductGroupByCategory, ProductDto>> GetGroupedProductsByCategory()
+        {
+            var products = Products.GroupBy(p => new ProductGroupByCategory { Id = p.CategoryId, Name = p.CategoryName });
+            return products;
+        }        
+    }
+
+    public class ProductGroupByCategory
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ProductGroupByCategory category &&
+                   Id == category.Id &&
+                   Name == category.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Name);
+        }
     }
 }

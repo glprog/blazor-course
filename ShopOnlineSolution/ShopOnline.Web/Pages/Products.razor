@@ -20,7 +20,7 @@ else
 	{
 		const int itemsPerRow = 4;
 		var productListRow = new List<ProductDto>();
-		var productsGroupByCategory = Products.GroupBy(p => new { Id = p.CategoryId, Name = p.CategoryName });			
+		var productsGroupByCategory = GetGroupedProductsByCategory();			
 
 		@foreach(var group in productsGroupByCategory)
 		{			
