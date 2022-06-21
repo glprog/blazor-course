@@ -18,5 +18,11 @@ namespace ShopOnline.Web.Services
             var products = await this.httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("Product");
             return products;
         }
+
+        public async Task<ProductDto> GetProductByIdAsync(int id)
+        {
+            var product = await this.httpClient.GetFromJsonAsync<ProductDto>($"Product/{id}");
+            return product;
+        }
     }
 }
