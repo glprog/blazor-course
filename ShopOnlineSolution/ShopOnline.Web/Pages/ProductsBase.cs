@@ -21,7 +21,7 @@ namespace ShopOnline.Web.Pages
         {
             var products = Products.GroupBy(p => new ProductGroupByCategory { Id = p.CategoryId, Name = p.CategoryName });
             return products;
-        }        
+        }              
     }
 
     public class ProductGroupByCategory
