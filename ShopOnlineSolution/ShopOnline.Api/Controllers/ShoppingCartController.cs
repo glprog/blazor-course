@@ -46,5 +46,27 @@ namespace ShopOnline.Api.Controllers
 
             return CreatedAtAction(nameof(GetItemAsync), new { id = item.Id }, item);
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<CartItemDto>> DeleteItem(int id)
+        {
+            try
+            {
+                var cartItem = await this.shoppingCartRepository.DeleteItemAsync(id);
+                if (cartItem == null)
+                {
+                    return NotFound();
+                }
+
+                var product = await this.productRepository.GetProductAsync(cartItem.ProductId);
+                var cartItemDto = cartItem.ConvertoDto(product);
+
+                return Ok(cartItemDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

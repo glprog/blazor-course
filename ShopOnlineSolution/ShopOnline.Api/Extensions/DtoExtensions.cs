@@ -55,7 +55,7 @@ namespace ShopOnline.Api.Extensions
                 p => p.Id,
                 (c, p) => new CartItemDto
                 {
-                    Id = c.CartId,
+                    Id = c.Id,
                     ProductId = c.ProductId,
                     ProductName = p.Name,
                     ProductDescription = p.Description,
@@ -75,7 +75,7 @@ namespace ShopOnline.Api.Extensions
         {
             var item = new CartItemDto
             {
-                Id = cartItem.CartId,
+                Id = cartItem.Id,
                 ProductId = cartItem.ProductId,
                 ProductName = product.Name,
                 ProductDescription = product.Description,

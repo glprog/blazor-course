@@ -32,6 +32,24 @@ namespace ShopOnline.Web.Services
             throw new Exception(message);
         }
 
+        public async Task<CartItemDto> DeleteItemAsync(int id)
+        {
+            try
+            {
+                var response = await this.httpClient.DeleteAsync($"ShoppingCart/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<CartItemDto>();
+                }
+                return default(CartItemDto);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<CartItemDto> GetItemAsync(int id)
         {
             throw new NotImplementedException();
