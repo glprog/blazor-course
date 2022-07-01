@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http.Json;
+using System.Text;
+using Newtonsoft.Json;
 using ShopOnline.Models;
 using ShopOnline.Web.Services.Contracts;
 
@@ -59,6 +61,21 @@ namespace ShopOnline.Web.Services
         {
             var response = await this.httpClient.GetFromJsonAsync<IEnumerable<CartItemDto>>($"ShoppingCart/{userId}/GetItems");
             return response;
+        }
+
+        public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        {
+            var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            var response = await this.httpClient.PatchAsync($"ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var item = await response.Content.ReadFromJsonAsync<CartItemDto>();
+                return item;
+            }
+
+            return null;
         }
     }
 }

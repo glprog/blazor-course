@@ -8,5 +8,6 @@ namespace ShopOnline.Web.Services.Contracts
         Task<CartItemDto> GetItemAsync(int id);
         Task<CartItemDto> AddItemAsync(CartItemToAddDto cartItemToAddDto);
         Task<CartItemDto> DeleteItemAsync(int id);
+        Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
     }
 }
