@@ -1,0 +1,15 @@
+﻿@inject IShoppingCartService shoppingCartService;
+
+@code {
+	private int shoppingCartItemCount = 0;
+
+	protected async override Task OnInitializedAsync()
+	{
+		shoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;		
+	}
+
+	protected void ShoppingCartChanged(int totalQty)
+	{
+		shoppingCartItemCount = totalQty;
+	}
+}
