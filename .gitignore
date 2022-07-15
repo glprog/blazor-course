@@ -452,3 +452,6 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/ShopOnlineSolution/ShopOnline.Api/ShopOnline.db
+ShopOnlineSolution/ShopOnline.Api/ShopOnline.db-shm
+ShopOnlineSolution/ShopOnline.Api/ShopOnline.db-wal
