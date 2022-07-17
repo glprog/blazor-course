@@ -455,3 +455,4 @@ $RECYCLE.BIN/
 /ShopOnlineSolution/ShopOnline.Api/ShopOnline.db
 ShopOnlineSolution/ShopOnline.Api/ShopOnline.db-shm
 ShopOnlineSolution/ShopOnline.Api/ShopOnline.db-wal
+ShopOnlineSolution/ShopOnline.Web/wwwroot/appsettings.development.json

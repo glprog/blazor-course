@@ -1,0 +1,12 @@
+﻿@page "/Checkout"
+@inherits CheckoutBase
+
+<h3>Checkout</h3>
+
+<div id="paypal-button-container"></div>
+<input type="hidden" name="descriptionInput" id="description" @bind="PaymentDescription"/>
+<input type="hidden" name="amountInput" id="amount" @bind="PaymentAmount"/>
+
+@code {
+
+}

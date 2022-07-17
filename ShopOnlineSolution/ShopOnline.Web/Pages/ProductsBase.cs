@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ShopOnline.Models;
 using ShopOnline.Web.Services.Contracts;
+using ShopOnline.Web.Shared;
 
 namespace ShopOnline.Web.Pages
 {
@@ -11,6 +12,9 @@ namespace ShopOnline.Web.Pages
 
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
+
+        [Inject]
+        public ShoppingOnlineConfig ShoppingOnlineConfig { get; set; }
 
         public IEnumerable<ProductDto> Products { get; set; }
 
@@ -23,6 +27,7 @@ namespace ShopOnline.Web.Pages
             var totalQty = shoppingCartItems.Sum(i => i.Qty);
 
             ShoppingCartService.RaiseEventOnShoppingCartChanged(totalQty);
+            Console.WriteLine(this.ShoppingOnlineConfig.PAYPAL_CLIENT_ID);
         }
 
         protected IEnumerable<IGrouping<ProductGroupByCategory, ProductDto>> GetGroupedProductsByCategory()
