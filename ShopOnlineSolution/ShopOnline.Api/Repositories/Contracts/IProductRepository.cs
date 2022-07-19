@@ -8,5 +8,6 @@ namespace ShopOnline.Api.Repositories.Contracts
         Task<Product> GetProductAsync(int id);
         Task<IEnumerable<ProductCategory>> GetAllProductCategoriesAsync();
         Task<ProductCategory> GetProductCategoryAsync(int id);
+        Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId);
     }
 }

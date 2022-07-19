@@ -5,6 +5,11 @@ namespace ShopOnline.Api.Extensions
 {
     public static class DtoExtensions
     {
+        public static IEnumerable<ProductCategoryDto> ConvertToDto(this IEnumerable<ProductCategory> productCategories)
+		{
+            return productCategories.Select(c => new ProductCategoryDto { Id = c.Id, Name = c.Name, IconCSS = c.IconCSS });
+		}
+
         public static IEnumerable<ProductDto> ConvertToDto(
             this IEnumerable<Product> products,
             IEnumerable<ProductCategory> categories)

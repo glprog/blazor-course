@@ -37,5 +37,11 @@ namespace ShopOnline.Api.Repositories
             var category = await dbContext.ProductCategories.SingleOrDefaultAsync(x => x.Id == id);
             return category;
         }
-    }
+
+		public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
+		{
+			var products = await this.dbContext.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
+            return products;
+		}
+	}
 }
