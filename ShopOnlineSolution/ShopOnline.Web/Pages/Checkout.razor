@@ -1,11 +1,54 @@
 ﻿@page "/Checkout"
+@using ShopOnline.Web.Pages.Shared
 @inherits CheckoutBase
 
-<h3>Checkout</h3>
-
-<div id="paypal-button-container"></div>
-<input type="hidden" name="descriptionInput" id="description" @bind="PaymentDescription"/>
-<input type="hidden" name="amountInput" id="amount" @bind="PaymentAmount"/>
+<h3 class="mb-5">Checkout</h3>
+<div class="row">
+	<div class="col-md-6">
+		<h4 class="mb-2">Payment method</h4>
+		<div id="paypal-button-container"></div>
+		<input type="hidden" name="descriptionInput" id="description" @bind="PaymentDescription"/>
+		<input type="hidden" name="amountInput" id="amount" @bind="PaymentAmount"/>
+	</div>
+	@if (ShoppingCartItems == null)
+	{
+		<DisplayLoading />
+	}
+	else
+	{
+		<div class="col-md-6">
+			<h4 class="mb-2">Payment summary</h4>
+			@if (ShoppingCartItems.Count() > 0)
+			{
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach(var item in ShoppingCartItems)
+						{
+							<tr>
+								<td>@item.Qty x @item.ProductName</td>
+								<td>@item.TotalPrice.ToString("C")</td>
+							</tr>
+						}
+						<tr>
+							<td><b>Total</b></td>
+							<td><b>@PaymentAmount.ToString("C")</b></td>
+						</tr>
+					</tbody>
+				</table>
+			}
+			else
+			{
+				<p>You currently have no items in your shopping cart</p>
+			}
+		</div>
+	}
+</div>
 
 @code {
 
