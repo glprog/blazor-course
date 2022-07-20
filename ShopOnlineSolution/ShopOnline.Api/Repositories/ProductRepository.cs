@@ -22,13 +22,13 @@ namespace ShopOnline.Api.Repositories
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            var products = await dbContext.Products.ToListAsync();
+            var products = await dbContext.Products.Include(p => p.ProductCategory).ToListAsync();
             return products;
         }
 
         public async Task<Product> GetProductAsync(int id)
         {
-            var product = await dbContext.Products.SingleOrDefaultAsync(x => x.Id == id);
+            var product = await dbContext.Products.Include(p => p.ProductCategory).SingleOrDefaultAsync(x => x.Id == id);
             return product;
         }
 
@@ -40,7 +40,7 @@ namespace ShopOnline.Api.Repositories
 
 		public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
 		{
-			var products = await this.dbContext.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
+			var products = await this.dbContext.Products.Include(p => p.ProductCategory).Where(p => p.CategoryId == categoryId).ToListAsync();
             return products;
 		}
 	}

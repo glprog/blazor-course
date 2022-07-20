@@ -21,7 +21,7 @@ namespace ShopOnline.Api.Controllers
         {
             var products = await this.productsRepository.GetAllProductsAsync();
             var categories = await this.productsRepository.GetAllProductCategoriesAsync();
-            var productsDto = products.ConvertToDto(categories);
+            var productsDto = products.ConvertToDto();
 
             return Ok(productsDto);
         }
@@ -36,7 +36,7 @@ namespace ShopOnline.Api.Controllers
             }
 
             var category = await this.productsRepository.GetProductCategoryAsync(product.CategoryId);
-            return Ok(product.ConvertToDto(category));
+            return Ok(product.ConvertToDto());
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace ShopOnline.Api.Controllers
             var products = await this.productsRepository.GetProductsByCategoryAsync(categoryId);
             var categories = await this.productsRepository.GetAllProductCategoriesAsync();
 
-            return Ok(products.ConvertToDto(categories));
+            return Ok(products.ConvertToDto());
 		}
     }
 }

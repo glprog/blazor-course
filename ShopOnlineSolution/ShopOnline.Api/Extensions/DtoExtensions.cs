@@ -11,38 +11,32 @@ namespace ShopOnline.Api.Extensions
 		}
 
         public static IEnumerable<ProductDto> ConvertToDto(
-            this IEnumerable<Product> products,
-            IEnumerable<ProductCategory> categories)
+            this IEnumerable<Product> products)
         {
-            return products.Join(
-                categories,
-                p => p.CategoryId,
-                c => c.Id,
-                (p, c) => new ProductDto
+            return products.Select(p =>                
+                new ProductDto
                     {
                         Id = p.Id,
                         Name = p.Name,
                         CategoryId = p.CategoryId,
-                        CategoryName = c.Name,
+                        CategoryName = p.ProductCategory.Name,
                         Price = p.Price,
                         Description = p.Description,
                         ImageURL = p.ImageURL,
-                        Qty = p.Qty,
+                        Qty = p.Qty,                        
                     }
                 );
         }
 
         public static ProductDto ConvertToDto(
-            this Product product,
-            ProductCategory category
-            )
+            this Product product)
         {
             return new ProductDto
             {
                 Id = product.Id,
                 Name = product.Name,
                 CategoryId = product.CategoryId,
-                CategoryName = category.Name,
+                CategoryName = product.ProductCategory.Name,
                 Price = product.Price,
                 Description = product.Description,
                 ImageURL = product.ImageURL,
