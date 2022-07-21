@@ -1,23 +1,49 @@
-﻿using ShopOnline.Models;
+﻿using Blazored.LocalStorage;
+using ShopOnline.Models;
 using ShopOnline.Web.Services.Contracts;
 
 namespace ShopOnline.Web.Services
 {
     public class ManageCartItemsLocalStorageService : IManageCartItemsLocalStorageService
     {
-        public Task<IEnumerable<CartItemDto>> GetCollection()
+        private readonly ILocalStorageService localStorageService;
+        private readonly IShoppingCartService shoppingCartService;
+
+        const string KEY = "CartItemsCollection";
+
+        public ManageCartItemsLocalStorageService(ILocalStorageService localStorageService,
+            IShoppingCartService shoppingCartService)
         {
-            throw new NotImplementedException();
+            this.localStorageService = localStorageService;
+            this.shoppingCartService = shoppingCartService;
         }
 
-        public Task RemoveCollection()
+        public async Task<IEnumerable<CartItemDto>> GetCollection()
         {
-            throw new NotImplementedException();
+            return await this.localStorageService.GetItemAsync<IEnumerable<CartItemDto>>(KEY)
+                ?? await this.AddCollection();
         }
 
-        public Task SaveCollection(List<CartItemDto> cartItemsDtos)
+        public async Task RemoveCollection()
         {
-            throw new NotImplementedException();
+            await this.localStorageService.RemoveItemAsync(KEY);
+        }
+
+        public async Task SaveCollection(List<CartItemDto> cartItemsDtos)
+        {
+            await this.localStorageService.SetItemAsync(KEY, cartItemsDtos);
+        }
+
+        private async Task<IEnumerable<CartItemDto>> AddCollection()
+        {
+            var collection = await this.shoppingCartService.GetItemsAsync(Constants.UserId);
+
+            if (collection != null)
+            {
+                await this.localStorageService.SetItemAsync(KEY, collection);
+            }
+
+            return collection;
         }
     }
 }
